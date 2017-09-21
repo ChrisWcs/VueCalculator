@@ -2,16 +2,32 @@
   <div id="app">
     <img src="./assets/logo.png">
     <hello></hello>
+    <display :data="count"/>
+    <count-button increase="incre"/>
   </div>
 </template>
 
 <script>
 import Hello from './components/Hello'
+import Display from './components/Display'
+import CountButton from './components/CountButton'
 
 export default {
   name: 'app',
   components: {
-    Hello
+    Hello,
+    Display,
+    CountButton
+  },
+  data () {
+    return {
+      count: 0
+    }
+  },
+  methods: {
+    incre: function () {
+      this.count = this.count + 1
+    }
   }
 }
 </script>
