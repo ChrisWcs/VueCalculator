@@ -14,13 +14,13 @@
         <button class="Button" @click="numberPress(4)">4</button>
         <button class="Button" @click="numberPress(5)">5</button>
         <button class="Button" @click="numberPress(6)">6</button>
-        <button class="Button" >-</button>
+        <button class="Button" @click="minus()">-</button>
       </div>
       <div class="FlexRow">
         <button class="Button" @click="numberPress(1)">1</button>
         <button class="Button" @click="numberPress(2)">2</button>
         <button class="Button" @click="numberPress(3)">3</button>
-        <button class="Button">_</button>
+        <button class="Button" @click="equal()">=</button>
       </div>
     </div>
   </div>
@@ -31,17 +31,44 @@ export default {
   name: 'app',
   data () {
     return {
-      number: 0,
-      total: 0
+      current2: 0,
+      total: 0,
+      current: 0,
+      status: true,
+      operator: ''
     }
   },
   methods: {
     numberPress (temp) {
       this.number = temp
+      if (this.status) {
+        this.current = temp
+        this.status = false
+      } else {
+        this.current2 = temp
+        this.status = true
+      }
     },
     add () {
-      this.total += this.number
-      this.number = 0
+      if (this.status) {
+        this.current = this.total
+        this.status = !this.status
+      }
+      this.operator = '+'
+    },
+    minus () {
+      if (this.status) {
+        this.current = this.total
+        this.status = !this.status
+      }
+      this.operator = '-'
+    },
+    equal () {
+      if (this.operator === '+') {
+        this.total = this.current + this.current2
+      } else {
+        this.total = this.current - this.current2
+      }
     }
   }
 }
